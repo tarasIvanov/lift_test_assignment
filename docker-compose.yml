@@ -1,9 +1,9 @@
 services:
-  php:
+  lift-app:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: lift_php
+    container_name: lift-app
     volumes:
       - .:/var/www/html
     depends_on:
@@ -19,20 +19,20 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: lift_nginx
+    container_name: nginx
     ports:
       - "8080:80"
     volumes:
       - .:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - php
+      - lift-app
     networks:
       - lift_network
 
   mysql:
     image: mysql:8.0
-    container_name: lift_mysql
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: lift_app
@@ -52,7 +52,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.13-management-alpine
-    container_name: lift_rabbitmq
+    container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"

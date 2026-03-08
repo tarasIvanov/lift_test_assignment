@@ -15,5 +15,4 @@ framework:
                 dsn: 'doctrine://default?queue_name=failed'
 
         routing:
-            # Route messages to the async transport
-            # App\Message\YourMessage: async
+            App\Message\CreateContactMessage: async
