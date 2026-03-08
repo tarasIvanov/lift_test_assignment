@@ -25,6 +25,9 @@ class Contact
     #[ORM\Column(type: Types::STRING, length: 255)]
     private string $lastName;
 
+    #[ORM\Column(type: Types::STRING, length: 45)]
+    private string $ip;
+
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $country = null;
 
@@ -43,10 +46,12 @@ class Contact
     public function __construct(
         string $firstName,
         string $lastName,
+        string $ip,
         ?string $country = null,
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->ip = $ip;
         $this->country = $country;
         $this->createdAt = new \DateTimeImmutable();
         $this->phoneNumbers = new ArrayCollection();
@@ -65,6 +70,11 @@ class Contact
     public function getLastName(): string
     {
         return $this->lastName;
+    }
+
+    public function getIp(): string
+    {
+        return $this->ip;
     }
 
     public function getCountry(): ?string

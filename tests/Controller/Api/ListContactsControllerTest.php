@@ -39,7 +39,7 @@ class ListContactsControllerTest extends WebTestCase
 
     public function testGetReturnsContactsWithPhoneNumbers(): void
     {
-        $contact = new Contact('John', 'Doe', 'United States');
+        $contact = new Contact('John', 'Doe', '8.8.8.8', 'United States');
         $contact->addPhoneNumber(new PhoneNumber('+1234567890'));
         $this->em->persist($contact);
         $this->em->flush();
@@ -58,9 +58,9 @@ class ListContactsControllerTest extends WebTestCase
 
     public function testGetSortsByLastNameAsc(): void
     {
-        $contactA = new Contact('Alice', 'Zimmerman', null);
+        $contactA = new Contact('Alice', 'Zimmerman', '1.1.1.1');
         $contactA->addPhoneNumber(new PhoneNumber('+111'));
-        $contactB = new Contact('Bob', 'Adams', null);
+        $contactB = new Contact('Bob', 'Adams', '2.2.2.2');
         $contactB->addPhoneNumber(new PhoneNumber('+222'));
 
         $this->em->persist($contactA);
@@ -79,9 +79,9 @@ class ListContactsControllerTest extends WebTestCase
 
     public function testGetSortsByLastNameDesc(): void
     {
-        $contactA = new Contact('Alice', 'Adams', null);
+        $contactA = new Contact('Alice', 'Adams', '3.3.3.3');
         $contactA->addPhoneNumber(new PhoneNumber('+111'));
-        $contactB = new Contact('Bob', 'Zimmerman', null);
+        $contactB = new Contact('Bob', 'Zimmerman', '4.4.4.4');
         $contactB->addPhoneNumber(new PhoneNumber('+222'));
 
         $this->em->persist($contactA);

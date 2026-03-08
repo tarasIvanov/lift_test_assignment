@@ -100,6 +100,7 @@ final class ListContactsController
                 'id' => $contact->getId(),
                 'firstName' => $contact->getFirstName(),
                 'lastName' => $contact->getLastName(),
+                'ip' => $contact->getIp(),
                 'country' => $contact->getCountry(),
                 'phoneNumbers' => $phoneNumbers,
             ];

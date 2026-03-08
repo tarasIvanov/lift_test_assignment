@@ -27,6 +27,7 @@ final class CreateContactMessageHandler
         $contact = new Contact(
             $message->firstName,
             $message->lastName,
+            $message->ip,
             $country,
         );
 

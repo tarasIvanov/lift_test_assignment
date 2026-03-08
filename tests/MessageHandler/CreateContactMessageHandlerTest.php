@@ -45,6 +45,7 @@ class CreateContactMessageHandlerTest extends TestCase
             ->with($this->callback(function (Contact $contact): bool {
                 return $contact->getFirstName() === 'John'
                     && $contact->getLastName() === 'Doe'
+                    && $contact->getIp() === '8.8.8.8'
                     && $contact->getCountry() === 'United States'
                     && $contact->getPhoneNumbers()->count() === 2;
             }));
