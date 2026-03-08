@@ -1,0 +1,56 @@
+# Specifications and planning (local only)
+.specify/
+specs/
+
+# Claude Code
+.claude/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Symfony
+/var/
+/vendor/
+/.env.local
+/.env.local.php
+/.env.*.local
+
+# PHPUnit
+.phpunit.result.cache
+.phpunit.cache/
+
+# PHP CS Fixer
+.php-cs-fixer.cache
+
+# PHPStan
+phpstan.neon.local
+
+# Composer
+composer.phar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
