@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class IpGeolocationService implements IpGeolocationServiceInterface
@@ -12,6 +13,7 @@ final class IpGeolocationService implements IpGeolocationServiceInterface
 
     public function __construct(
         private readonly HttpClientInterface $httpClient,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -25,8 +27,21 @@ final class IpGeolocationService implements IpGeolocationServiceInterface
 
             $data = $response->toArray();
 
-            return $data['country'] ?? null;
-        } catch (\Throwable) {
+            if (!isset($data['country'])) {
+                $this->logger->notice('Geolocation API response missing "country" field for IP {ip}', [
+                    'ip' => $ip,
+                ]);
+
+                return null;
+            }
+
+            return $data['country'];
+        } catch (\Throwable $e) {
+            $this->logger->warning('Geolocation API request failed for IP {ip}: {error}', [
+                'ip' => $ip,
+                'error' => $e->getMessage(),
+            ]);
+
             return null;
         }
     }

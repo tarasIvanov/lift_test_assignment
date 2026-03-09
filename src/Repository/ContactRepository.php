@@ -27,20 +27,18 @@ class ContactRepository extends ServiceEntityRepository
     /**
      * @return Contact[]
      */
-    public function findAllSorted(
-        string $sort = 'lastName',
-        string $order = 'asc',
-    ): array {
+    public function findAllSorted(string $sort = 'lastName', string $order = 'asc'): array
+    {
         if (!in_array($sort, self::SORTABLE_FIELDS, true)) {
             $sort = 'lastName';
         }
 
         $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
 
-        return $this->createQueryBuilder('c')
-            ->leftJoin('c.phoneNumbers', 'p')
-            ->addSelect('p')
-            ->orderBy('c.' . $sort, $order)
+        return $this->createQueryBuilder('contact')
+            ->leftJoin('contact.phoneNumbers', 'phone')
+            ->addSelect('phone')
+            ->orderBy('contact.' . $sort, $order)
             ->getQuery()
             ->getResult();
     }

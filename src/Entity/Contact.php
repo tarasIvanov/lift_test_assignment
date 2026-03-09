@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ORM\Table(name: 'contact')]
+#[ORM\Index(columns: ['last_name'], name: 'idx_contact_last_name')]
 class Contact
 {
     #[ORM\Id]
@@ -29,7 +30,7 @@ class Contact
     private string $ip;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $country = null;
+    private ?string $country;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $createdAt;

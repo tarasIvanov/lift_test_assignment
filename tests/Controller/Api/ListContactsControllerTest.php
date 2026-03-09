@@ -53,6 +53,8 @@ class ListContactsControllerTest extends WebTestCase
         $this->assertSame('John', $data[0]['firstName']);
         $this->assertSame('Doe', $data[0]['lastName']);
         $this->assertSame('United States', $data[0]['country']);
+        $this->assertArrayHasKey('createdAt', $data[0]);
+        $this->assertNotFalse(\DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $data[0]['createdAt']));
         $this->assertSame(['+1234567890'], $data[0]['phoneNumbers']);
     }
 
