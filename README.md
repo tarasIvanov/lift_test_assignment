@@ -22,12 +22,11 @@ Swagger UI: http://localhost:8080/api/doc
 
 ## Architecture
 
-- **CQRS** — POST кладе повідомлення в RabbitMQ, GET читає з БД. Запис і читання строго розділені.
-- **Service Layer** — контролер тонкий, бізнес-логіка в `ContactService`.
-- **DTO** — `CreateContactRequestDTO` з валідаційними атрибутами + `#[MapRequestPayload]`, `ContactResponse` з factory `fromEntity()`.
+- **Асинхронна обробка** — POST кладе повідомлення в RabbitMQ, воркер зберігає в БД. GET читає напряму.
+- **Service Layer** — валідація, кешування та маппінг винесені в сервісний шар та DTO.
 - **Redis кешування** — GET відповіді кешуються на 10с (TTL-based, без інвалідації).
 - **Індекс на `lastName`** — оптимізація сортування.
-- **Логування** — помилки геолокації логуються через PSR-3 (warning/notice).
+- **Логування** — помилки геолокації логуються з контекстом для дебагу.
 - **Global Exception Handler** — всі помилки повертаються в JSON форматі.
-- **Docker Compose** — PHP-FPM, Nginx, MySQL, RabbitMQ, Redis з healthchecks.
+- **Docker Compose** — PHP-FPM, Nginx, MySQL, RabbitMQ, Redis
 - **PHPUnit**, **PHPStan level 8**, **PHP-CS-Fixer (PSR-12)**.
