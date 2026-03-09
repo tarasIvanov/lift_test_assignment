@@ -20,6 +20,29 @@ services:
     networks:
       - lift_network
 
+  worker:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: worker
+    command: php bin/console messenger:consume async -vv
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      lift-app:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql://app:secret@mysql:3306/lift_app?serverVersion=8.0
+      MESSENGER_TRANSPORT_DSN: amqp://guest:guest@rabbitmq:5672/%2f/messages
+      REDIS_URL: redis://redis:6379
+    restart: unless-stopped
+    networks:
+      - lift_network
+
   nginx:
     image: nginx:alpine
     container_name: nginx

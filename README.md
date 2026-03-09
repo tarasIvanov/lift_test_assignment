@@ -8,15 +8,15 @@ REST API для збереження та отримання контактів 
 ```bash
 make up
 make migrate
-make worker
 ```
 
 Або без Makefile:
 ```bash
 docker compose up --build -d
 docker compose exec lift-app php bin/console doctrine:migrations:migrate --no-interaction
-docker compose exec lift-app php bin/console messenger:consume async -vv
 ```
+
+Воркер для обробки черги стартує автоматично як окремий контейнер з `restart: unless-stopped`.
 
 Swagger UI: http://localhost:8080/api/doc
 
